@@ -9,11 +9,23 @@ Quickfix item filepathes are amended to be relative to the current working direc
 
 - Git version [2.40.0](https://github.com/git/git/releases/tag/v2.40.0) or later.
 
-- The contrib script must be aliased to `git jump` in your global git configuration. On MacOs with Homebrew, this looks as follows:
+- The contrib script must be aliased to `git jump` in your global git configuration:
+
+#### MacOS with Homebrew
 
 ```gitconfig
 [alias]
   jump = "!$(brew --prefix git)/share/git-core/contrib/git-jump/git-jump"
+```
+#### Other
+
+```sh
+curl https://raw.githubusercontent.com/git/git/refs/heads/master/contrib/git-jump/git-jump > /usr/local/bin/git-jump
+```
+
+```gitconfig
+[alias]
+  jump = "/usr/local/bin/git-jump"
 ```
 
 ## Installation
