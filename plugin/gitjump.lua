@@ -3,7 +3,7 @@
 -- TODO ask users to alias git-jump in git config
 
 vim.api.nvim_create_user_command(
-  "GitJump",
+  "Gitjump",
   function(opts)
     local mode = require("gitjump.mode").get_mode(opts.args)
 
