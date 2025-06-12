@@ -2,32 +2,41 @@
 -- TODO check git is above the git-jump --stdout version
 -- TODO ask users to alias git-jump in git config
 
+local COMPLETIONS = {
+  "merge",
+  "diff",
+}
+
 vim.api.nvim_create_user_command(
   "Gitjump",
   function(opts)
-    local mode = require("gitjump.mode").get_mode(opts.args)
+    local mode = nil
+    for _, cmd in ipairs(COMPLETIONS) do
+      if opts.args == cmd then
+        mode = cmd
+        break
+      end
+    end
 
     if mode == nil then
-      vim.notify("Invalid GitJump mode: " .. opts.args, vim.log.levels.WARN)
+      vim.notify("Invalid Gitjump mode: " .. opts.args, vim.log.levels.WARN)
       return
     end
 
-    require("gitjump").jump(mode)
+    require("gitjump").jump(opts.args)
   end,
   {
-    desc = "Run `git jump [mode]` and redirect the output to the quickfix list",
+    desc = "Run `git jump [args]` and redirect the output to the quickfix list",
     nargs = 1,
     complete = function(_, line)
-      local completions = require("gitjump.mode").commands
-
-      local params = vim.split(line, "%s+", { trimempty = true })
+      local params = vim.split(line, "%s+", { keepempty = true })
 
       if #params == 1 then
-        return completions
+        return COMPLETIONS
       elseif #params == 2 then
         return vim.tbl_filter(function(arg)
           return vim.startswith(arg, params[2])
-        end, completions)
+        end, COMPLETIONS)
       end
     end,
   }
