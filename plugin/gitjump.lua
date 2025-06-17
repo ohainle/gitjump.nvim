@@ -5,6 +5,8 @@
 local COMPLETIONS = {
   "merge",
   "diff",
+  "grep",
+  "ws",
 }
 
 vim.api.nvim_create_user_command(
@@ -18,7 +20,7 @@ vim.api.nvim_create_user_command(
       end
     end
 
-    if mode == nil then
+    if false and mode == nil then
       vim.notify("Invalid Gitjump mode: " .. opts.args, vim.log.levels.WARN)
       return
     end
