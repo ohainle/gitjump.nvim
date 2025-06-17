@@ -7,16 +7,16 @@ Quickfix item filepathes are amended to be relative to the current working direc
 
 ## Prerequisites
 
-### Git
+### Git
 
 Git version [2.40.0](https://github.com/git/git/releases/tag/v2.40.0) or later, to ensure that `git jump` supports the `--stdout` arg.
 
-### [contrib/git-jump](https://github.com/git/git/tree/master/contrib/git-jump/README.md)
+### [contrib/git-jump](https://github.com/git/git/tree/master/contrib/git-jump/README.md)
 
 Contrib scripts are not packaged with every git distribution.
 If you have a version of git that does not include it, you will need to install it manually.
 
-#### Locating `contrib/git-jump`
+#### Locating `contrib/git-jump`
 
 You can check if your git installation includes the `git-jump` contrib script by finding your git installation directory:
 
@@ -60,6 +60,6 @@ Using [lazy.nvim](https://github.com/folke/lazy.nvim)
 
 `:GitJump [diff [args]|merge|grep [args]| ws]`
 
-## Issues
+## Issues
 
 Please report bugs to [https://github.com/ohainle/gitjump.nvim/issues](https://github.com/ohainle/gitjump.nvim/issues).
