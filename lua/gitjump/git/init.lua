@@ -33,18 +33,39 @@ local function get_raw_git_jump_output(args)
   return raw
 end
 
+-- Not all `git jump` variants comply with GCC format.
+-- For instance, `git jump --stdout ws` uses a multiline format.
+-- User-defined jump.grepCmd behaviour will also introduce unexpected behaviour.
+--
+-- When non-compatible entries are encountered, we should exclude
+-- these from the final output.
+local function resolve_qfitems_to_gcc_format(qfitems)
+  for i = #qfitems, 1, -1 do
+    local line = qfitems[i]
+
+    if not line:match("^[^:]+:%d+:") then
+      -- TODO: if part of a multiline entry,
+      -- append this line to previous to preserve contents.
+
+      table.remove(qfitems, i)
+    end
+  end
+
+  return qfitems
+end
+
 function M.get_qfitems(args)
   local raw = get_raw_git_jump_output(args)
 
   local qfitems = vim.split(raw, "[\n\r]")
-
-  -- TODO handle `git jump ws` multiline output
 
   if #qfitems ~= 0 then
     if qfitems[#qfitems] == "" then
       table.remove(qfitems, #qfitems)
     end
   end
+
+  qfitems = resolve_qfitems_to_gcc_format(qfitems)
 
   return qfitems
 end
